@@ -23,5 +23,14 @@
   
 #submit-choices:active {
     background-color: gold;
-    transform: scale(1.2);
+    transform: scale(1.1);
+}
+
+/* To Mark the X and O squares */
+.x {
+  background: #FF7276;
+}
+
+.o {
+  background: #90ee90;
 }

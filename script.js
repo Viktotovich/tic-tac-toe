@@ -5,15 +5,12 @@ n + 4 => (squares 9, 5, 1 (9-4)), right to left side slash \
 n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match.
 */
 
-const gameboard = {
-    gameboard: [],
-}
 
-
-// *kinda* modular javascript - will fix when I get home and have time
+// modular javascript - will fix when I get home and have time
 
 (function(){
-    
+    const gameboard = [];
+
     function renderListeners(){
         window.addEventListener("DOMContentLoaded", () => {
             const modal = document.querySelector("dialog")
@@ -22,9 +19,33 @@ const gameboard = {
 
         const submit = document.querySelector("#submit-choices");
         submit.addEventListener("click", getPlayerValues);
+
+        const newGame = document.querySelector("#new-game");
+        const keyDOM = document.querySelector(".tic-tac-toe-container");
+        newGame.addEventListener("click", runGame(keyDOM));
     }
 
     renderListeners();
+
+    function createBoard(keyDOM) {
+        let square;
+        for (let i = 0; i < 10; i++){
+        square = document.createElement("div").setAttribute("id", `${i}`);
+        square.setAttribute("class", "game-square");
+        square.addEventListener("click", markSquare);
+        keyDOM.appendChild("square");
+        }
+    }
+
+    function runGame(keyDOM){
+        //separate function so I can re-use just the board
+        createBoard(keyDOM);
+    }
+
+    function markSquare(e){
+        const targetElement = e.target;
+        //issue: need to know what player and fishka
+    }
 
     function Player(player, fishka, score){
         this.player = player;
