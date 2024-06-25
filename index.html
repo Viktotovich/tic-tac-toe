@@ -6,14 +6,23 @@
     <title>Document</title>
 </head>
 <body>
+    <dialog open>
+        <label for="player1-name">Player 1, please choose a name:</label>
+        <input type="text" id="player1-name">
+        <br> <!--Space / 1 Enter-->
+        <label for="player2-name">Player 2, please choose a name:</label>
+        <input type="text" id="player2-name">
+
+        <button id="submit-choices" type="button">START!</button>
+    </dialog>
     <!--We are just going to focus on selecting the DOMs for now-->
     <div class="scoreboard">
         <ul>
-            <!--For visuals only, we are going to append these elements with DOM with the actual player names from input-->
+            <!--For visuals only, we are going to append these elements with DOM with the actual player names from input-
             <li><span class="player1-name">Player 1</span> score:<span class="player1-score"></span></li>
-            <li><span class="player1-name">Player 2</span> score:<span class="player1-score"></span></li>
+            <li><span class="player2-name">Player 2</span> score:<span class="player1-score"></span></li>
             <li>Games Played: <span class="games-played"></span></li>
-        </ul>
+        </ul> -->
     </div>
 
     <!--The game container itself-->
