@@ -1,0 +1,27 @@
+::backdrop {
+    background-color: red;
+    opacity: 0;
+  }
+  
+.input-wrap {
+    margin: 0.2rem;
+}
+  
+#submit-choices {
+    margin-top: 0.2rem;
+    border-radius: 3px;
+    border: 1px solid gainsboro;
+    background-color: aquamarine;
+    padding: 7 15px;
+}
+  
+#submit-choices:hover {
+    background-color: #7ffaa6;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+  
+#submit-choices:active {
+    background-color: gold;
+    transform: scale(1.2);
+}

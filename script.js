@@ -7,18 +7,59 @@ n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match.
 
 const gameboard = {
     gameboard: [],
-    gameflow: (function(){
-
-        function Player(player, fishka, score){
-            this.player = player;
-            this.fishka = fishka;
-            this.score = score;
-        }
-
-        function getName(name) {
-            player1Name = document.querySelector("#player1-name")
-            player2Name = document.querySelector("#player2-name")
-        }
-
-    })(),
 }
+
+
+// *kinda* modular javascript - will fix when I get home and have time
+
+(function(){
+    
+    function renderListeners(){
+        window.addEventListener("DOMContentLoaded", () => {
+            const modal = document.querySelector("dialog")
+            modal.showModal;
+        })
+
+        const submit = document.querySelector("#submit-choices");
+        submit.addEventListener("click", getPlayerValues);
+    }
+
+    renderListeners();
+
+    function Player(player, fishka, score){
+        this.player = player;
+        this.fishka = fishka;
+        this.score = score;
+    }
+
+    Player.prototype.increaseScore = function() {
+        this.score += 1;
+    }
+
+    Player.prototype.resetScore = function() {
+        this.score *= 0;
+    }
+
+    function getPlayerValues() {
+        submit.preventDefault //no access to anything that can run this (( I hope submit is within the scope
+        player1Name = document.querySelector("#player1-name").textContent;
+        player2Name = document.querySelector("#player2-name").textContent;
+        player1Fishka = document.querySelector("#player1-fishka").value;
+        player2Fishka;
+
+        if (player1Fishka === "O") {
+            player2Fishka = "X";
+        } else {
+            player2Fishka = "O";
+        }
+      
+        const player1 = new Player(player1Name, player1Fishka, 0);
+        const player2 = new Player(player2Name, player2Fishka, 0);
+
+        return {
+            player1,
+            player2
+        }
+    }
+
+})()
