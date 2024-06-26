@@ -7,28 +7,30 @@ n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match.
 
 
 // modular javascript - will fix when I get home and have time
+const gameboard = {
+    gameboard: []
+};
+
 
 (function(){
-    const gameboard = [];
-
     function renderListeners(){
-        window.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", () => {
             const modal = document.querySelector("dialog")
             modal.showModal;
-        })
+        });
 
         const submit = document.querySelector("#submit-choices");
         submit.addEventListener("click", getPlayerValues);
 
-        const newGame = document.querySelector("#new-game");
         const keyDOM = document.querySelector(".tic-tac-toe-container");
-        newGame.addEventListener("click", runGame(keyDOM));
+        submit.addEventListener("click", runGame(keyDOM));
     }
 
     renderListeners();
 
     function createBoard(keyDOM) {
         let square;
+        gameboard.gameboard.splice(0,9,null,null,null,null,null,null,null,null,null);
         for (let i = 0; i < 10; i++){
         square = document.createElement("div").setAttribute("id", `${i}`);
         square.setAttribute("class", "game-square");
@@ -79,7 +81,8 @@ n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match.
 
         return {
             player1,
-            player2
+            player2,
+            gameboard
         }
     }
 
