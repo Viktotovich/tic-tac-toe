@@ -16,26 +16,28 @@ const gameboard = {
     function renderListeners(){
         document.addEventListener("DOMContentLoaded", () => {
             const modal = document.querySelector("dialog")
-            modal.showModal;
+            modal.showModal();
         });
 
         const submit = document.querySelector("#submit-choices");
-        submit.addEventListener("click", getPlayerValues);
+        submit.addEventListener("click", getPlayerValues());
 
-        const keyDOM = document.querySelector(".tic-tac-toe-container");
-        submit.addEventListener("click", runGame(keyDOM));
+        submit.addEventListener("click", runGame);
     }
 
     renderListeners();
 
-    function createBoard(keyDOM) {
+    function createBoard() {
         let square;
         gameboard.gameboard.splice(0,9,null,null,null,null,null,null,null,null,null);
-        for (let i = 0; i < 10; i++){
-        square = document.createElement("div").setAttribute("id", `${i}`);
+        for (let i = 0; i < 9; i++){
+        square = document.createElement("div")
+        square.setAttribute("id", `${i}`);
         square.setAttribute("class", "game-square");
         square.addEventListener("click", markSquare);
-        keyDOM.appendChild("square");
+
+        const keyDOM = document.querySelector(".tic-tac-toe-container");
+        keyDOM.appendChild(square);
         }
     }
 
@@ -64,11 +66,10 @@ const gameboard = {
     }
 
     function getPlayerValues() {
-        submit.preventDefault //no access to anything that can run this (( I hope submit is within the scope
         player1Name = document.querySelector("#player1-name").textContent;
         player2Name = document.querySelector("#player2-name").textContent;
         player1Fishka = document.querySelector("#player1-fishka").value;
-        player2Fishka;
+        let player2Fishka;
 
         if (player1Fishka === "O") {
             player2Fishka = "X";
@@ -79,11 +80,18 @@ const gameboard = {
         const player1 = new Player(player1Name, player1Fishka, 0);
         const player2 = new Player(player2Name, player2Fishka, 0);
 
+        closeModal();
+
         return {
             player1,
             player2,
             gameboard
         }
     }
+    
+    function closeModal(){
+        const modal = document.querySelector("dialog")
+        modal.close();
+    };
 
 })()
