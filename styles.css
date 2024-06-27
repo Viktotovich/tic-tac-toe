@@ -34,3 +34,11 @@
 .o {
   background: #90ee90;
 }
+
+/* The Tic Tac Toe Grid */
+.tic-tac-toe-container#active {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  border: 1px solid sandybrown;
+}

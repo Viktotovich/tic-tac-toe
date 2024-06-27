@@ -2,25 +2,33 @@
 n + 2 => n is a factor of 105 (3, 5, 7) && !1 - covers the right side slash /
 n + 3 => all downwards squares
 n + 4 => (squares 9, 5, 1 (9-4)), right to left side slash \
-n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match.
-*/
-
+n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match. */
 
 // modular javascript - will fix when I get home and have time
 const gameboard = {
-    gameboard: []
+    gameboard: [],
+    
+    //logic checks - easier to fix when something doesnt work
+    n1: function(player1Fishka, player2Fishka){
+
+    },
+    n2: function(player1Fishka, player2Fishka){
+
+    },
+    n3: function(player1Fishka, player2Fishka){
+
+    },
+    n4: function(player1Fishka, player2Fishka){
+
+    }
 };
 
 
 (function(){
     function renderListeners(){
-        document.addEventListener("DOMContentLoaded", () => {
-            const modal = document.querySelector("dialog")
-            modal.showModal();
-        });
-
+        document.addEventListener("DOMContentLoaded", openModal);
         const submit = document.querySelector("#submit-choices");
-        submit.addEventListener("click", getPlayerValues());
+        submit.addEventListener("click", getPlayerValues);
 
         submit.addEventListener("click", runGame);
     }
@@ -44,6 +52,10 @@ const gameboard = {
     function runGame(keyDOM){
         //separate function so I can re-use just the board
         createBoard(keyDOM);
+        const turns = [];
+        //Append max amount of turns, measure for the limit - if reached, GG.
+        //Every once in a while call handleLogic()
+        handleLogic();
     }
 
     function markSquare(e){
@@ -84,14 +96,26 @@ const gameboard = {
 
         return {
             player1,
-            player2,
-            gameboard
-        }
+            player2
+            }
+        //Anything run after getPlayerValues is A-Okay to access player1 and 2's scores and methods
     }
     
     function closeModal(){
         const modal = document.querySelector("dialog")
         modal.close();
     };
+
+    function openModal(){
+        const modal = document.querySelector("dialog")
+        modal.showModal();
+    }
+
+    function handleLogic(){
+        gameboard.n1(player1.fishka, player2.fishka);
+        gameboard.n2(player1.fishka, player2.fishka);
+        gameboard.n3(player1.fishka, player2.fishka);
+        gameboard.n4(player1.fishka, player2.fishka);
+    }
 
 })()
