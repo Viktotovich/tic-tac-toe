@@ -1,7 +1,7 @@
 /* Logic for the game: all possible ways to win on an array with 9 values:
-n + 2 => n is a factor of 105 (3, 5, 7) && !1 - covers the right side slash /
-n + 3 => all downwards squares
-n + 4 => (squares 9, 5, 1 (9-4)), right to left side slash \
+n + 2 => (3, 5, 7) - covers the right side slash /
+n + 3 => all downwards squares (i loop + 3)
+n + 4 => (squares 9, 5, 1 (9-4)), right to left side slash (i loop + 4) \
 n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match. */
 
 // modular javascript - will fix when I get home and have time
@@ -9,16 +9,49 @@ const gameboard = {
     gameboard: [],
     
     //logic checks - easier to fix when something doesnt work
-    n1: function(player1Fishka, player2Fishka){
+    n1: function(){
+        var firstColumn = this.gameboard.slice(0, 2);
+        var secondColumn = this.gameboard.slice(3, 5);
+        var thirdColumn = this.gameboard.slice(6, 8);
 
+        this.victoryCondition(firstColumn);
+        this.victoryCondition(secondColumn);
+        this.victoryCondition(thirdColumn);
     },
-    n2: function(player1Fishka, player2Fishka){
+    n2: function(){
+        var column = [];
+        let boardPart;
 
-    },
-    n3: function(player1Fishka, player2Fishka){
+        for (let i = 2; i < 9; i + 2 ) {
+            boardPart = this.gameboard.slice(i);
+            column.push(boardPart);
+        }
 
+        this.victoryCondition(column)
     },
-    n4: function(player1Fishka, player2Fishka){
+    n3: function(){
+        var column = [];
+        let boardPart;
+
+        for (let i = 0; i < 9; i + 3) {
+            boardPart = this.gameboard.slice(i);
+            column.push(boardPart);
+        }
+
+        this.victoryCondition(column)
+    },
+    n4: function(){
+        var column = [];
+        let boardPart;
+
+        for (let i = 0; i < 9; i + 4) {
+            boardPart = this.gameboard.slice(i);
+            column.push(boardPart);
+        }
+
+        this.victoryCondition(column)
+    },
+    victoryCondition: function(column){
 
     }
 };
@@ -83,6 +116,13 @@ const gameboard = {
         player1Fishka = document.querySelector("#player1-fishka").value;
         let player2Fishka;
 
+        if (player1Name === '' || player2Name === '') {
+            var warning = document.querySelector("#warning-text");
+            warning.textContent = "Please fill in all the necessary details before proceeding";
+        } else {
+            warning.textContent = '';
+            closeModal();
+            
         if (player1Fishka === "O") {
             player2Fishka = "X";
         } else {
@@ -92,13 +132,12 @@ const gameboard = {
         const player1 = new Player(player1Name, player1Fishka, 0);
         const player2 = new Player(player2Name, player2Fishka, 0);
 
-        closeModal();
-
-        return {
-            player1,
-            player2
+            return {
+                player1,
+                player2
+                }
+            //Anything run after getPlayerValues is A-Okay to access player1 and 2's scores and methods
             }
-        //Anything run after getPlayerValues is A-Okay to access player1 and 2's scores and methods
     }
     
     function closeModal(){
@@ -112,10 +151,15 @@ const gameboard = {
     }
 
     function handleLogic(){
-        gameboard.n1(player1.fishka, player2.fishka);
-        gameboard.n2(player1.fishka, player2.fishka);
-        gameboard.n3(player1.fishka, player2.fishka);
-        gameboard.n4(player1.fishka, player2.fishka);
+        gameboard.n1();
+        gameboard.n2();
+        gameboard.n3();
+        gameboard.n4();
     }
 
+    return {
+        handleLogic,
+        player1,
+        player2,
+    }
 })()
