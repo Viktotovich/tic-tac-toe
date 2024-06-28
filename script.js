@@ -52,7 +52,9 @@ const gameboard = {
         this.victoryCondition(column)
     },
     victoryCondition: function(column){
-
+    reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
+    return reducedArray;
+    //works, production ready
     }
 };
 
@@ -63,7 +65,7 @@ const gameboard = {
         const submit = document.querySelector("#submit-choices");
         submit.addEventListener("click", getPlayerValues);
 
-        submit.addEventListener("click", runGame);
+        submit.addEventListener("click", createBoard);
     }
 
     renderListeners();
@@ -80,15 +82,6 @@ const gameboard = {
         const keyDOM = document.querySelector(".tic-tac-toe-container");
         keyDOM.appendChild(square);
         }
-    }
-
-    function runGame(keyDOM){
-        //separate function so I can re-use just the board
-        createBoard(keyDOM);
-        const turns = [];
-        //Append max amount of turns, measure for the limit - if reached, GG.
-        //Every once in a while call handleLogic()
-        handleLogic();
     }
 
     function markSquare(e){
