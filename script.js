@@ -65,8 +65,13 @@ const gameRules = {
     },
     victoryCondition: function(column){
         reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
-        return reducedColumn;
-        //works, production ready
+            if (reducedColumn === 'XXX' || reducedColumn === 'OOO'){
+                awardPlayer();
+            } else {
+                gameboard.rounds.push("1");
+                playRound();
+                //need to add awardPlayer() and playRound() functions to one of the objs, returning reduce column was pointless so removed
+            }
         },
 };
 
@@ -145,4 +150,25 @@ function createPlayer(name, fishka){
         getScore,
         getFishka
     }
+}
+
+function gameFlow(){
+    const currentRound = gameboard.gameboard.reduce((item, accumulator) => {accumulator += item});
+    function playRound(){
+        //check if the round array is < or = 9, if it's 9 - draw the game, if not, go on.
+        //Call the logic checks after calling the draw check
+    }
+    function awardPlayer(){
+        //a bit overkill, but find out who's turn was it last, and if won - award that player through the player1/2 obj
+    }
+    function drawCheck(){
+        //check for draw
+    }
+
+    return {
+        playround,
+        awardPlayer,
+        drawCheck
+    }
+    //Re-visit closures as I have some doubts
 }
