@@ -13,7 +13,11 @@ const gameboard = {
     },
     markSquare: function(e){
         const targetElement = e.target;
+        gameFlow.playRound();
         targetElement.setAttribute("class", this.currentFishka);
+
+        //check if the player won
+        gameboard.outsourceLogic();
     }
 };
 
@@ -67,13 +71,26 @@ const gameRules = {
     //key function to work on at the moment
     victoryCondition: function(column){
         reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
-            if (reducedColumn === 'XXX' || reducedColumn === 'OOO'){
-                awardPlayer();
-            } else {
-                gameboard.rounds.push("1");
-                playRound();
-                //need to add awardPlayer() and playRound() functions to one of the objs, returning reduce column was pointless so removed
-            }
+        switch(reducedColumn){
+            case 'XXX':
+                if (gameboard.players[0].getFishka === 'X'){
+                    gameboard.players[0].awardPlayer;
+                } else {
+                    gameboard.players[1].awardPlayer;
+                }
+                break;
+
+            case 'OOO':
+                if (gameboard.players[0].getFishka === 'O'){
+                    gameboard.players[0].awardPlayer;
+                } else {
+                    gameboard.players[1].awardPlayer;
+                }
+                break;
+
+            default:
+                gameFlow.drawCheck();
+        }
         },
 };
 
@@ -154,7 +171,7 @@ function createPlayer(name, fishka){
     }
 }
 
-function gameFlow(){
+const gameFlow = (function(){
 
     function playRound(){
         if (gameboard.rounds.length === 9) {
@@ -162,11 +179,11 @@ function gameFlow(){
         } else {
             //find out what turn it is
             gameboard.rounds.push(1);
-            const currentRound = gameboard.rounds.reduce((item, accumulator) => {accumulator += item});
+            const currentRound = gameboard.rounds.reduce((accumulator, item) => {accumulator += item}, 0);
 
             //find out who's turn it is
             //and then append it to the gameboard, so that the fishka can be marked accordingly
-            (currentRound % 2 === 0) ? gameboard.currentFishka = gameboard.player2.getFishka() : gameboard.currentFishka = gameboard.player1.getFishka();
+            (currentRound % 2 === 0) ? gameboard.currentFishka = gameboard.players[0].getFishka() : gameboard.currentFishka = gameboard.players[1].getFishka();
         }
     }
 
@@ -182,5 +199,4 @@ function gameFlow(){
         awardPlayer,
         drawCheck
     }
-    //Re-visit closures as I have some doubts
-}
+})();
