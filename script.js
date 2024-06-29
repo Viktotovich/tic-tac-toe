@@ -6,10 +6,18 @@ const gameboard = {
     currentFishka: 'X',
 
     outsourceLogic: function(){
+        console.log('Running gameRules.n1');
         gameRules.n1();
+        console.log('Completed gameRules.n1');
+        console.log('Running gameRules.n2');
         gameRules.n2();
+        console.log('Completed gameRules.n2');
+        console.log('Running gameRules.n3');
         gameRules.n3();
+        console.log('Completed gameRules.n3');
+        console.log('Running gameRules.n4');
         gameRules.n4();
+        console.log('Completed gameRules.n4');
     },
     markSquare: function(e){
         const targetElement = e.target;
@@ -17,8 +25,9 @@ const gameboard = {
         targetElement.setAttribute("class", this.currentFishka);
 
         //check if the player won
+        console.log('Running outsourceLogic');
         gameboard.outsourceLogic();
-    }
+        console.log('Completed outsourceLogic');    }
 };
 
 /* Logic for the game: all possible ways to win on an array with 9 values:
@@ -51,7 +60,7 @@ const gameRules = {
         var column = [];
         let boardPart;
 
-        for (let i = 0; i < 9; i + 3) {
+        for (let i = 0; i < 9; i += 3) {
             boardPart = gameboard.gameboard.slice(i);
             column.push(boardPart);
         }
@@ -62,7 +71,7 @@ const gameRules = {
         var column = [];
         let boardPart;
 
-        for (let i = 0; i < 9; i + 4) {
+        for (let i = 0; i < 9; i += 4) {
             boardPart = gameboard.gameboard.slice(i);
             column.push(boardPart);
         }
