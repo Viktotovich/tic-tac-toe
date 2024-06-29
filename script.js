@@ -43,8 +43,8 @@ const gameRules = {
         var column = [];
         let boardPart;
 
-        for (let i = 2; i < 9; i += 2 ) {
-            boardPart = gameboard.gameboard.slice(i);
+        for (let i = 2; i < 7; i += 2 ) {
+            boardPart = gameboard.gameboard[i];
             column.push(boardPart);
         }
 
@@ -52,33 +52,48 @@ const gameRules = {
     },
     n3: function(){
         var column = [];
+        var column2 = [];
+        var column3 = [];
+
         let boardPart;
 
         for (let i = 0; i < 9; i += 3) {
-            boardPart = gameboard.gameboard.slice(i);
+            boardPart = gameboard.gameboard[i];
             column.push(boardPart);
         }
 
+        for (let j = 1; j < 9; j += 3) {
+            boardPart = gameboard.gameboard[j];
+            column2.push(boardPart);
+        }
+
+        for (let k = 2; k < 9; k += 3) {
+            boardPart = gameboard.gameboard[k];
+            column3.push(boardPart);
+        }
+
         this.victoryCondition(column)
+        this.victoryCondition(column2)
+        this.victoryCondition(column3)
+
     },
     n4: function(){
         var column = [];
         let boardPart;
 
         for (let i = 0; i < 9; i += 4) {
-            boardPart = gameboard.gameboard.slice(i);
+            boardPart = gameboard.gameboard[i];
             column.push(boardPart);
         }
         this.victoryCondition(column)
     },
-    //key function to work on at the moment
+
     victoryCondition: function(column){
 
         reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
 
         switch(reducedColumn){
             case 'xxx':
-                console.log("this got called")
                 if (gameboard.players[0].getFishka === 'X'){
                     gameboard.players[0].awardPlayer;
                 } else {
@@ -87,7 +102,6 @@ const gameRules = {
                 break;
 
             case 'OOO':
-                console.log("this got called")
                 if (gameboard.players[0].getFishka === 'O'){
                     gameboard.players[0].awardPlayer;
                 } else {
@@ -197,7 +211,7 @@ const gameFlow = (function(){
     }
 
     function awardPlayer(){
-        //a bit overkill, but find out who's turn was it last, and if won - award that player through the player1/2 obj
+        //might be useless, if I can just use closures to add points
     }
 
     function drawCheck(){
