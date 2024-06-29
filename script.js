@@ -31,11 +31,10 @@ n + 4 => (squares 9, 5, 1 (9-4)), right to left side slash (i loop + 4) \
 n + 1 =>  split array in 3 parts, 123, 456, 789, and look if all 3 match. */
 const gameRules = {
     n1: function(){
-        var firstColumn = gameboard.gameboard.slice(0, 2);
-        var secondColumn = gameboard.gameboard.slice(3, 5);
-        var thirdColumn = gameboard.gameboard.slice(6, 8);
+        var firstColumn = gameboard.gameboard.slice(0, 3);
+        var secondColumn = gameboard.gameboard.slice(3, 6);
+        var thirdColumn = gameboard.gameboard.slice(6, 9);
 
-        console.log(firstColumn, secondColumn,thirdColumn)
         this.victoryCondition(firstColumn);
         this.victoryCondition(secondColumn);
         this.victoryCondition(thirdColumn);
@@ -78,7 +77,8 @@ const gameRules = {
         reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
 
         switch(reducedColumn){
-            case 'XXX':
+            case 'xxx':
+                console.log("this got called")
                 if (gameboard.players[0].getFishka === 'X'){
                     gameboard.players[0].awardPlayer;
                 } else {
@@ -87,6 +87,7 @@ const gameRules = {
                 break;
 
             case 'OOO':
+                console.log("this got called")
                 if (gameboard.players[0].getFishka === 'O'){
                     gameboard.players[0].awardPlayer;
                 } else {
