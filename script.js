@@ -6,28 +6,22 @@ const gameboard = {
     currentFishka: 'X',
 
     outsourceLogic: function(){
-        console.log('Running gameRules.n1');
         gameRules.n1();
-        console.log('Completed gameRules.n1');
-        console.log('Running gameRules.n2');
         gameRules.n2();
-        console.log('Completed gameRules.n2');
-        console.log('Running gameRules.n3');
         gameRules.n3();
-        console.log('Completed gameRules.n3');
-        console.log('Running gameRules.n4');
         gameRules.n4();
-        console.log('Completed gameRules.n4');
     },
     markSquare: function(e){
         const targetElement = e.target;
         gameFlow.playRound();
-        targetElement.setAttribute("class", this.currentFishka);
+        targetElement.setAttribute("class", gameboard.currentFishka);
+
+        let index = targetElement.getAttribute("id");
+        gameboard.gameboard[index] = gameboard.currentFishka;
 
         //check if the player won
-        console.log('Running outsourceLogic');
         gameboard.outsourceLogic();
-        console.log('Completed outsourceLogic');    }
+    },
 };
 
 /* Logic for the game: all possible ways to win on an array with 9 values:
@@ -41,6 +35,7 @@ const gameRules = {
         var secondColumn = gameboard.gameboard.slice(3, 5);
         var thirdColumn = gameboard.gameboard.slice(6, 8);
 
+        console.log(firstColumn, secondColumn,thirdColumn)
         this.victoryCondition(firstColumn);
         this.victoryCondition(secondColumn);
         this.victoryCondition(thirdColumn);
@@ -79,7 +74,9 @@ const gameRules = {
     },
     //key function to work on at the moment
     victoryCondition: function(column){
+
         reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
+
         switch(reducedColumn){
             case 'XXX':
                 if (gameboard.players[0].getFishka === 'X'){
@@ -187,18 +184,21 @@ const gameFlow = (function(){
             //return draw, pop-up to start over
         } else {
             //find out what turn it is
-            gameboard.rounds.push(1);
-            const currentRound = gameboard.rounds.reduce((accumulator, item) => {accumulator += item}, 0);
-
+            const currentRound = gameboard.rounds.reduce((accumulator, item) => accumulator + item, 0);
             //find out who's turn it is
-            //and then append it to the gameboard, so that the fishka can be marked accordingly
-            (currentRound % 2 === 0) ? gameboard.currentFishka = gameboard.players[0].getFishka() : gameboard.currentFishka = gameboard.players[1].getFishka();
+            if (currentRound % 2 === 0) {
+                gameboard.currentFishka = gameboard.players[0].getFishka()
+            } else {
+                gameboard.currentFishka = gameboard.players[1].getFishka();
+            }
+            gameboard.rounds.push(1);
         }
     }
 
     function awardPlayer(){
         //a bit overkill, but find out who's turn was it last, and if won - award that player through the player1/2 obj
     }
+
     function drawCheck(){
         //check for draw
     }
