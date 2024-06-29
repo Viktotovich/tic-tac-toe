@@ -3,6 +3,7 @@ const gameboard = {
     rounds: [],
     fishkas: [],
     players: [],
+    currentFishka: 'X',
 
     outsourceLogic: function(){
         gameRules.n1();
@@ -12,7 +13,7 @@ const gameboard = {
     },
     markSquare: function(e){
         const targetElement = e.target;
-        //Figure this out
+        targetElement.setAttribute("class", this.currentFishka);
     }
 };
 
@@ -63,6 +64,7 @@ const gameRules = {
         }
         this.victoryCondition(column)
     },
+    //key function to work on at the moment
     victoryCondition: function(column){
         reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
             if (reducedColumn === 'XXX' || reducedColumn === 'OOO'){
@@ -75,7 +77,6 @@ const gameRules = {
         },
 };
 
-//refactored IIFE as it was trying to do too much
 (function(){
     function renderListeners(){
         document.addEventListener("DOMContentLoaded", openModal);
@@ -148,16 +149,27 @@ function createPlayer(name, fishka){
     return{
         awardScore,
         getScore,
-        getFishka
+        getFishka,
+        getPlayerName
     }
 }
 
 function gameFlow(){
-    const currentRound = gameboard.gameboard.reduce((item, accumulator) => {accumulator += item});
+
     function playRound(){
-        //check if the round array is < or = 9, if it's 9 - draw the game, if not, go on.
-        //Call the logic checks after calling the draw check
+        if (gameboard.rounds.length === 9) {
+            //return draw, pop-up to start over
+        } else {
+            //find out what turn it is
+            gameboard.rounds.push(1);
+            const currentRound = gameboard.rounds.reduce((item, accumulator) => {accumulator += item});
+
+            //find out who's turn it is
+            //and then append it to the gameboard, so that the fishka can be marked accordingly
+            (currentRound % 2 === 0) ? gameboard.currentFishka = gameboard.player2.getFishka() : gameboard.currentFishka = gameboard.player1.getFishka();
+        }
     }
+
     function awardPlayer(){
         //a bit overkill, but find out who's turn was it last, and if won - award that player through the player1/2 obj
     }
@@ -166,7 +178,7 @@ function gameFlow(){
     }
 
     return {
-        playround,
+        playRound,
         awardPlayer,
         drawCheck
     }
