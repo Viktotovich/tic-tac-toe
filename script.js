@@ -189,6 +189,7 @@ const domManager = (function(){
 
     return {
         createBoard,
+        openModal
     }
 })();
 
@@ -274,7 +275,7 @@ const gameFlow = (function(){
 })();
 
 
-//buttons and scoreboard container
+//buttons
 
 const buttons = (function(){
 
@@ -299,24 +300,49 @@ function createButtons(buttonsContainer){
 }
 
 function reset() {
+    removeSquares();
+    removeButtons();
+
+    gameboard.rounds = [];
+
+    domManager.createBoard();
+}
+
+function restart() {
+    removeSquares();
+    removeButtons();
+    gameboard.fishkas = [];
+    gameboard.rounds = [];
+    gameboard.players = [];
+    domManager.openModal();
+}
+
+function removeSquares() {
     for (let i = 0; i < gameboard.gameboard.length; i++){
         let square = document.querySelector(`[title="${i}"]`);
         square.remove();
     }
+}
+
+function removeButtons(){
     let resetButton = document.querySelector("#reset")
     let restartButton = document.querySelector("#restart")
 
     resetButton.remove();
     restartButton.remove();
-    gameboard.rounds = [];
-    
-    domManager.createBoard();
 }
 
-function restart() {
-
-}
 return {
     createButtons,
 }
+})();
+
+
+//scoreboard control
+
+const scoreboardControl = (function(){
+    //display player names
+    //current player turn's
+    //player's fishka/character
+    //players' points
 })();
