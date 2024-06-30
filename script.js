@@ -127,15 +127,16 @@ const gameRules = {
 const domManager = (function(){
     function renderListeners(){
         document.addEventListener("DOMContentLoaded", openModal);
+
         const submit = document.querySelector("#submit-choices");
         submit.addEventListener("click", getPlayerValues);
-
         submit.addEventListener("click", createBoard);
     }
 
     function createBoard() {
         let square;
         gameboard.gameboard.splice(0,9,null,null,null,null,null,null,null,null,null);
+
         for (let i = 0; i < 9; i++){
         square = document.createElement("div")
         square.setAttribute("title", `${i}`);
@@ -145,6 +146,9 @@ const domManager = (function(){
         const keyDOM = document.querySelector(".tic-tac-toe-container");
         keyDOM.appendChild(square);
         }
+
+        const buttonsContainer = document.querySelector(".buttons-container");
+        buttons.createButtons(buttonsContainer);
     }
 
     function getPlayerValues(){
@@ -267,4 +271,25 @@ const gameFlow = (function(){
         drawCheck,
         declareWinner
     }
+})();
+
+
+//buttons and scoreboard container
+
+const buttons = (function(){
+
+function createButtons(buttonsContainer){
+    const resetButton = document.createElement('button');
+    const restartButton = document.createElement('button');
+
+    buttonsContainer.appendChild(resetButton);
+    buttonsContainer.appendChild(restartButton);
+
+    resetButton.textContent = "Reset"
+    restartButton.textContent = "Restart"
+}
+
+return {
+    createButtons,
+}
 })();
