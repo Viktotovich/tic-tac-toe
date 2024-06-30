@@ -18,12 +18,12 @@ const gameboard = {
         const targetElementClass = targetElement.getAttribute("class");
 
         if (targetElementClass === 'o' ||   targetElementClass === 'x') {
-            //ignore user's input of exists
+            //ignore user's input if occupied square
         } else {
             gameFlow.playRound();
             targetElement.setAttribute("class", gameboard.currentFishka);
 
-            let index = targetElement.getAttribute("id");
+            let index = targetElement.getAttribute("title");
             gameboard.gameboard[index] = gameboard.currentFishka;
 
             //check if the player won
@@ -99,21 +99,22 @@ const gameRules = {
     victoryCondition: function(column){
 
         reducedColumn = column.reduce((accumulator, currentValue) => accumulator + currentValue);
-
         switch(reducedColumn){
             case 'xxx':
-                if (gameboard.players[0].getFishka === 'x'){
-                    gameboard.players[0].awardPlayer;
+                gameFlow.declareWinner('x')
+                if (gameboard.players[0].getFishka() === 'x'){
+                    gameboard.players[0].awardScore();
                 } else {
-                    gameboard.players[1].awardPlayer;
+                    gameboard.players[1].awardScore();
                 }
                 break;
 
             case 'ooo':
-                if (gameboard.players[0].getFishka === 'o'){
-                    gameboard.players[0].awardPlayer;
+                gameFlow.declareWinner('o')
+                if (gameboard.players[0].getFishka() === 'o'){
+                    gameboard.players[0].awardScore();
                 } else {
-                    gameboard.players[1].awardPlayer;
+                    gameboard.players[1].awardScore();
                 }
                 break;
 
@@ -123,7 +124,7 @@ const gameRules = {
         },
 };
 
-(function(){
+const domManager = (function(){
     function renderListeners(){
         document.addEventListener("DOMContentLoaded", openModal);
         const submit = document.querySelector("#submit-choices");
@@ -137,7 +138,7 @@ const gameRules = {
         gameboard.gameboard.splice(0,9,null,null,null,null,null,null,null,null,null);
         for (let i = 0; i < 9; i++){
         square = document.createElement("div")
-        square.setAttribute("id", `${i}`);
+        square.setAttribute("title", `${i}`);
         square.setAttribute("class", "game-square");
         square.addEventListener("click", gameboard.markSquare);
 
@@ -181,6 +182,10 @@ const gameRules = {
     }
 
     renderListeners();
+
+    return {
+        createBoard,
+    }
 })();
 
 function createPlayer(name, fishka){
@@ -218,17 +223,48 @@ const gameFlow = (function(){
         }
     }
 
-    function awardPlayer(){
-        //might be useless, if I can just use closures to add points
+    function drawCheck(){
+        if (gameboard.rounds.length == '8'){
+            endGame();
+        } else {
+            //continue
+        }
     }
 
-    function drawCheck(){
-        //check for draw
+    function markWinner(nodeList){
+        nodeList.forEach((item) => {
+            item.setAttribute("id", 'winner')
+        })
+    }
+
+    function declareWinner(fishka){
+        let nodeList;
+        endGame();
+        switch(fishka){
+            case 'x':
+                nodeList = document.querySelectorAll(".x")
+                markWinner(nodeList);
+                break;
+
+            case 'o':
+                nodeList = document.querySelectorAll(".o")
+                markWinner(nodeList);
+                break;
+            }
+    }
+
+    function endGame(){
+        for (let i = 0; i < gameboard.gameboard.length; i++){
+            let square = document.querySelector(`[title="${i}"]`);
+            if (square) {
+                square.removeEventListener('click',gameboard.markSquare)
+            }
+        }
     }
 
     return {
         playRound,
-        awardPlayer,
-        drawCheck
+        drawCheck,
+        declareWinner
     }
 })();

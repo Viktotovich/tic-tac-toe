@@ -59,6 +59,10 @@ body {
   border: 1px solid black;
 }
 
+#winner {
+  background: gold;
+}
+
 /* The Tic Tac Toe Grid */
 .tic-tac-toe-container {
   display: grid;
