@@ -3,7 +3,7 @@ const gameboard = {
     rounds: [],
     fishkas: [],
     players: [],
-    currentFishka: 'X',
+    currentFishka: 'x',
 
     outsourceLogic: function(){
         gameRules.n1();
@@ -13,14 +13,22 @@ const gameboard = {
     },
     markSquare: function(e){
         const targetElement = e.target;
-        gameFlow.playRound();
-        targetElement.setAttribute("class", gameboard.currentFishka);
 
-        let index = targetElement.getAttribute("id");
-        gameboard.gameboard[index] = gameboard.currentFishka;
+        //duplicate prevention
+        const targetElementClass = targetElement.getAttribute("class");
 
-        //check if the player won
-        gameboard.outsourceLogic();
+        if (targetElementClass === 'o' ||   targetElementClass === 'x') {
+            //ignore user's input of exists
+        } else {
+            gameFlow.playRound();
+            targetElement.setAttribute("class", gameboard.currentFishka);
+
+            let index = targetElement.getAttribute("id");
+            gameboard.gameboard[index] = gameboard.currentFishka;
+
+            //check if the player won
+            gameboard.outsourceLogic();
+        }
     },
 };
 
@@ -94,15 +102,15 @@ const gameRules = {
 
         switch(reducedColumn){
             case 'xxx':
-                if (gameboard.players[0].getFishka === 'X'){
+                if (gameboard.players[0].getFishka === 'x'){
                     gameboard.players[0].awardPlayer;
                 } else {
                     gameboard.players[1].awardPlayer;
                 }
                 break;
 
-            case 'OOO':
-                if (gameboard.players[0].getFishka === 'O'){
+            case 'ooo':
+                if (gameboard.players[0].getFishka === 'o'){
                     gameboard.players[0].awardPlayer;
                 } else {
                     gameboard.players[1].awardPlayer;
@@ -151,10 +159,10 @@ const gameRules = {
             var warning = document.querySelector("#warning-text");
             warning.textContent = '';
             closeModal();
-            if (player1Fishka === "O") {
-                player2Fishka = "X";
+            if (player1Fishka == "o") {
+                player2Fishka = "x";
             } else {
-                player2Fishka = "O";
+                player2Fishka = "o";
             }
             const player1 = createPlayer(player1Name, player1Fishka);
             const player2 = createPlayer(player2Name, player2Fishka);
