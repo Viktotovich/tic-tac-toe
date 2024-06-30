@@ -80,3 +80,19 @@ body {
   width: 100%;
   height: 100%;
 }
+
+/* Buttons */
+.game-control {
+  padding: 0.5rem 2rem;
+  margin: 2rem 1rem;
+}
+
+.game-control:hover {
+  cursor: pointer;
+}
+
+.game-control:active {
+  background-color: gainsboro;
+  transform: scale(1.1);
+  border-radius: 5px;
+}

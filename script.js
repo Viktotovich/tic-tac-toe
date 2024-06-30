@@ -287,8 +287,35 @@ function createButtons(buttonsContainer){
 
     resetButton.textContent = "Reset"
     restartButton.textContent = "Restart"
+
+    resetButton.setAttribute("class", "game-control")
+    restartButton.setAttribute("class", "game-control")
+
+    resetButton.setAttribute('id', "reset");
+    restartButton.setAttribute("id", "restart");
+
+    resetButton.addEventListener("click", reset);
+    restartButton.addEventListener("click", restart);
 }
 
+function reset() {
+    for (let i = 0; i < gameboard.gameboard.length; i++){
+        let square = document.querySelector(`[title="${i}"]`);
+        square.remove();
+    }
+    let resetButton = document.querySelector("#reset")
+    let restartButton = document.querySelector("#restart")
+
+    resetButton.remove();
+    restartButton.remove();
+    gameboard.rounds = [];
+    
+    domManager.createBoard();
+}
+
+function restart() {
+
+}
 return {
     createButtons,
 }
