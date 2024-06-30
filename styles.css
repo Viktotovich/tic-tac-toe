@@ -1,5 +1,9 @@
 body {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 ::backdrop {
@@ -31,12 +35,28 @@ body {
 }
 
 /* To Mark the X and O squares */
+.x::before {
+  content: 'X';
+}
+
 .x {
-  background: #FF7276;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e2d7d8;
+  border: 1px solid black;
+}
+
+.o::before {
+  content: 'O';
 }
 
 .o {
-  background: #90ee90;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #d8e7d8;
+  border: 1px solid black;
 }
 
 /* The Tic Tac Toe Grid */
@@ -44,13 +64,15 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  width: 30%;
-  height: 50vh;
-  border: 1px solid sandybrown;
+  width: 40%;
+  height: 70vh;
+  border: 1px solid black;
+  align-content: center;
+  justify-content: center;
 }
 
 .game-square{
   border: 1px solid black;
-  width: 33.33%;
-  height: 33%;
+  width: 100%;
+  height: 100%;
 }
