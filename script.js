@@ -224,7 +224,7 @@ const gameFlow = (function(){
     }
 
     function drawCheck(){
-        if (gameboard.rounds.length == '8'){
+        if (gameboard.rounds.length == '9'){
             endGame();
         } else {
             //continue
