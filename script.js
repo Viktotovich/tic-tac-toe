@@ -309,7 +309,8 @@ function reset() {
 
     gameboard.rounds = [];
     domManager.createBoard();
-    scoreboardControl.clearScoreboard();
+    scoreboardControl.clearRoundTracking();
+    scoreboardControl.displayRound(0);
 }
 
 function restart() {
@@ -381,9 +382,6 @@ const scoreboardControl = (function(){
     };
 
     function clearScoreboard(){
-        const whoPlays = document.querySelector(".display-who-plays");
-        whoPlays.textContent = '';
-
         const player1Name = document.querySelector(".player1-name");
         player1Name.textContent = '';
 
@@ -406,6 +404,11 @@ const scoreboardControl = (function(){
         gamesPlayed.textContent = '';
     }
 
+    function clearRoundTracking(){
+        const whoPlays = document.querySelector(".display-who-plays");
+        whoPlays.textContent = '';
+
+    }
     function displayRound(round){
         const gamesPlayed = document.querySelector(".rounds-played");
         gamesPlayed.textContent = `Round ${round}.`;
@@ -415,6 +418,7 @@ const scoreboardControl = (function(){
         handleDom,
         displayWhoPlays,
         displayRound,
-        clearScoreboard
+        clearScoreboard,
+        clearRoundTracking
     }
 })();
