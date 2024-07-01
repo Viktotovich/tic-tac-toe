@@ -248,16 +248,20 @@ const gameFlow = (function(){
 
     function declareWinner(fishka){
         let nodeList;
+        const whoPlays = document.querySelector(".display-who-plays");
         endGame();
         switch(fishka){
             case 'x':
                 nodeList = document.querySelectorAll(".x")
                 markWinner(nodeList);
+                whoPlays.textContent = 'x is the winner!!!'
                 break;
 
             case 'o':
                 nodeList = document.querySelectorAll(".o")
                 markWinner(nodeList);
+                whoPlays.textContent = 'O is the winner!!!'
+                
                 break;
             }
     }
