@@ -22,6 +22,7 @@ const gameboard = {
         } else {
             gameFlow.playRound();
             targetElement.setAttribute("class", gameboard.currentFishka);
+            scoreboardControl.displayWhoPlays();
 
             let index = targetElement.getAttribute("title");
             gameboard.gameboard[index] = gameboard.currentFishka;
@@ -149,6 +150,7 @@ const domManager = (function(){
 
         const buttonsContainer = document.querySelector(".buttons-container");
         buttons.createButtons(buttonsContainer);
+        scoreboardControl.handleDom();
     }
 
     function getPlayerValues(){
@@ -213,6 +215,7 @@ function createPlayer(name, fishka){
 const gameFlow = (function(){
 
     function playRound(){
+        console.log(gameboard.rounds.length)
         if (gameboard.rounds.length === 9) {
             //return draw, pop-up to start over
         } else {
@@ -220,11 +223,12 @@ const gameFlow = (function(){
             const currentRound = gameboard.rounds.reduce((accumulator, item) => accumulator + item, 0);
             //find out who's turn it is
             if (currentRound % 2 === 0) {
-                gameboard.currentFishka = gameboard.players[0].getFishka()
+                gameboard.currentFishka = gameboard.players[0].getFishka();
             } else {
-                gameboard.currentFishka = gameboard.players[1].getFishka();
+                gameboard.currentFishka = gameboard.players[1].getFishka();;
             }
             gameboard.rounds.push(1);
+            scoreboardControl.displayRound(gameboard.rounds.length)
         }
     }
 
@@ -304,8 +308,8 @@ function reset() {
     removeButtons();
 
     gameboard.rounds = [];
-
     domManager.createBoard();
+    scoreboardControl.clearScoreboard();
 }
 
 function restart() {
@@ -315,6 +319,7 @@ function restart() {
     gameboard.rounds = [];
     gameboard.players = [];
     domManager.openModal();
+    scoreboardControl.clearScoreboard();
 }
 
 function removeSquares() {
@@ -339,10 +344,77 @@ return {
 
 
 //scoreboard control
+//noticed an issue whenever user doesn't enter the values, the board still gets created
 
 const scoreboardControl = (function(){
-    //display player names
-    //current player turn's
-    //player's fishka/character
-    //players' points
+    function handleDom(){
+        const player1Name = document.querySelector(".player1-name");
+        player1Name.textContent = `Player 1: ${gameboard.players[0].getPlayerName()}`;
+
+        const player2Name = document.querySelector(".player2-name");
+        player2Name.textContent = `Player 2: ${gameboard.players[1].getPlayerName()}`;
+
+        const player1Score = document.querySelector(".player1-score");
+        player1Score.textContent = `${gameboard.players[0].getPlayerName()}, your score is: ${gameboard.players[0].getScore()}`;
+
+        const player2Score = document.querySelector(".player2-score");
+        player2Score.textContent = `${gameboard.players[1].getPlayerName()}, your score is: ${gameboard.players[1].getScore()}`;
+
+        const player1Fishka = document.querySelector(".player1-fishka");
+        player1Fishka.textContent = `Player 1's character: ${gameboard.players[0].getFishka()}`;
+
+        const player2Fishka = document.querySelector(".player2-fishka");
+        player2Fishka.textContent = `Player 2's character: ${gameboard.players[1].getFishka()}`;
+    };
+
+    function displayWhoPlays(){
+        const whoPlays = document.querySelector(".display-who-plays");
+        let fishka;
+        //everything works perfectly, including the score system but this for some reason, have to do the opposite for it to display correctly
+        if (gameboard.currentFishka == 'x'){
+            fishka = 'o'
+            whoPlays.textContent = `It's ${fishka}'s turn`
+        } else {
+            fishka = 'x'
+            whoPlays.textContent = `It's ${fishka}'s turn`
+        }
+    };
+
+    function clearScoreboard(){
+        const whoPlays = document.querySelector(".display-who-plays");
+        whoPlays.textContent = '';
+
+        const player1Name = document.querySelector(".player1-name");
+        player1Name.textContent = '';
+
+        const player2Name = document.querySelector(".player2-name");
+        player2Name.textContent = '';
+
+        const player1Score = document.querySelector(".player1-score");
+        player1Score.textContent = '';
+
+        const player2Score = document.querySelector(".player2-score");
+        player2Score.textContent = '';
+
+        const player1Fishka = document.querySelector(".player1-fishka");
+        player1Fishka.textContent = '';
+
+        const player2Fishka = document.querySelector(".player2-fishka");
+        player2Fishka.textContent = '';
+
+        const gamesPlayed = document.querySelector(".rounds-played");
+        gamesPlayed.textContent = '';
+    }
+
+    function displayRound(round){
+        const gamesPlayed = document.querySelector(".rounds-played");
+        gamesPlayed.textContent = `Round ${round}.`;
+    }
+
+    return {
+        handleDom,
+        displayWhoPlays,
+        displayRound,
+        clearScoreboard
+    }
 })();
