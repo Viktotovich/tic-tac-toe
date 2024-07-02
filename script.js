@@ -261,7 +261,6 @@ const gameFlow = (function(){
                 nodeList = document.querySelectorAll(".o")
                 markWinner(nodeList);
                 whoPlays.textContent = 'O is the winner!!!'
-                
                 break;
             }
     }
@@ -366,10 +365,10 @@ const scoreboardControl = (function(){
         player2Score.textContent = `${gameboard.players[1].getPlayerName()}, your score is: ${gameboard.players[1].getScore()}`;
 
         const player1Fishka = document.querySelector(".player1-fishka");
-        player1Fishka.textContent = `Player 1's character: ${gameboard.players[0].getFishka()}`;
+        player1Fishka.textContent = `you are: ${gameboard.players[0].getFishka()}`;
 
         const player2Fishka = document.querySelector(".player2-fishka");
-        player2Fishka.textContent = `Player 2's character: ${gameboard.players[1].getFishka()}`;
+        player2Fishka.textContent = `you are: ${gameboard.players[1].getFishka()}`;
     };
 
     function displayWhoPlays(){
