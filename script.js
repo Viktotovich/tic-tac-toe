@@ -215,7 +215,6 @@ function createPlayer(name, fishka){
 const gameFlow = (function(){
 
     function playRound(){
-        console.log(gameboard.rounds.length)
         if (gameboard.rounds.length === 9) {
             //return draw, pop-up to start over
         } else {
@@ -353,22 +352,16 @@ return {
 const scoreboardControl = (function(){
     function handleDom(){
         const player1Name = document.querySelector(".player1-name");
-        player1Name.textContent = `Player 1: ${gameboard.players[0].getPlayerName()}`;
+        player1Name.textContent = `Player 1: ${gameboard.players[0].getPlayerName()} & you are: ${gameboard.players[0].getFishka()}`;
 
         const player2Name = document.querySelector(".player2-name");
-        player2Name.textContent = `Player 2: ${gameboard.players[1].getPlayerName()}`;
+        player2Name.textContent = `Player 2: ${gameboard.players[1].getPlayerName()} & you are: ${gameboard.players[1].getFishka()}`;
 
         const player1Score = document.querySelector(".player1-score");
         player1Score.textContent = `${gameboard.players[0].getPlayerName()}, your score is: ${gameboard.players[0].getScore()}`;
 
         const player2Score = document.querySelector(".player2-score");
         player2Score.textContent = `${gameboard.players[1].getPlayerName()}, your score is: ${gameboard.players[1].getScore()}`;
-
-        const player1Fishka = document.querySelector(".player1-fishka");
-        player1Fishka.textContent = `you are: ${gameboard.players[0].getFishka()}`;
-
-        const player2Fishka = document.querySelector(".player2-fishka");
-        player2Fishka.textContent = `you are: ${gameboard.players[1].getFishka()}`;
     };
 
     function displayWhoPlays(){
