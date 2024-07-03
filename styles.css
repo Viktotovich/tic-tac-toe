@@ -1,20 +1,22 @@
 body {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 ::backdrop {
-    background-color: red;
-    opacity: 0;
+    background-color: white;
   }
-  
+
 .input-wrap {
     margin: 0.2rem;
 }
-  
+
 #submit-choices {
     margin-top: 0.2rem;
     border-radius: 3px;
@@ -22,13 +24,13 @@ body {
     background-color: aquamarine;
     padding: 7 15px;
 }
-  
+
 #submit-choices:hover {
     background-color: #7ffaa6;
     cursor: pointer;
     transform: translateY(-2px);
 }
-  
+
 #submit-choices:active {
     background-color: gold;
     transform: scale(1.1);
@@ -63,6 +65,10 @@ body {
   background: gold;
 }
 
+#draw {
+  background: gainsboro;
+}
+
 /* The Tic Tac Toe Grid */
 .tic-tac-toe-container {
   display: grid;
@@ -87,6 +93,7 @@ body {
   margin: 2rem 1rem;
 }
 
+/*I forgot what these were for a while, these are the button classes - they're not in the HTML because I added them with DOM */
 .game-control:hover {
   cursor: pointer;
 }
@@ -95,4 +102,22 @@ body {
   background-color: gainsboro;
   transform: scale(1.1);
   border-radius: 5px;
+}
+
+/* Everything after the modal */
+.scoreboard-container {
+  border: 1px solid black;
+  width: 100%;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+span {
+  padding: 0.2rem 1rem;
+}
+
+span:hover  {
+  transform: scaleY(1.1);
+  background-color: #d0f5dc;
 }

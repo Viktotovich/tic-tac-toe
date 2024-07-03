@@ -234,6 +234,8 @@ const gameFlow = (function(){
     function drawCheck(){
         if (gameboard.rounds.length == '9'){
             endGame();
+            const whoPlays = document.querySelector(".display-who-plays");
+            whoPlays.textContent = "";
         } else {
             //continue
         }
@@ -313,6 +315,7 @@ function reset() {
     domManager.createBoard();
     scoreboardControl.clearRoundTracking();
     scoreboardControl.displayRound(0);
+    scoreboardControl.displayWhoPlays();
 }
 
 function restart() {
@@ -402,9 +405,6 @@ const scoreboardControl = (function(){
     function displayRound(round){
         const gamesPlayed = document.querySelector(".rounds-played");
         gamesPlayed.textContent = `Round ${round}.`;
-        if (round == '9'){
-            gamesPlayed.textContent = "It's a draw!";
-        }
     }
 
     return {
