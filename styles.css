@@ -109,7 +109,21 @@ body {
   border: 1px solid black;
   width: 100%;
   margin-bottom: 1rem;
+}
+
+.player-container {
   display: flex;
+  justify-content: space-around;
+}
+
+.player1-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;}
+
+.player2-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -117,7 +131,48 @@ span {
   padding: 0.2rem 1rem;
 }
 
-span:hover  {
+.player1-container div:hover  {
   transform: scaleY(1.1);
   background-color: #d0f5dc;
 }
+
+.player2-container div:hover  {
+  transform: scaleY(1.1);
+  background-color: #f7c29f;
+}
+
+.versus-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.versus {
+  font-size: 2rem;
+  grid-area: 1 / 1 / 2 / 2;
+  z-index: 2;
+}
+
+.fire {
+  grid-area: 1 / 1 / 2 / 2;
+  font-size: 2rem;
+  color: #ff6600;
+  text-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600, 0 0 30px #ff6600;
+  animation: fire 0.5s infinite alternate;
+}
+
+@keyframes fire {
+  0%, 100% {
+      transform: scaleY(1);
+      transform: scaleX(1);
+      opacity: 0.9;
+  }
+  50% {
+      transform: scaleY(1.8);
+      transform: scaleX(1.02);
+      opacity: 1;
+  }
+}
+

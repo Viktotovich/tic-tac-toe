@@ -161,7 +161,9 @@ const domManager = (function(){
 
         if (player1Name === '' || player2Name === '') {
             var warning = document.querySelector("#warning-text");
-            warning.textContent = "Please fill in all the necessary details before proceeding";
+            warning.textContent = "Your names please..";
+            player1Name == 'Player 1'
+            player2Name == 'Player 2'
         } else {
             var warning = document.querySelector("#warning-text");
             warning.textContent = '';
@@ -349,22 +351,28 @@ return {
 })();
 
 
-//scoreboard control
-//noticed an issue whenever user doesn't enter the values, the board still gets created
-
+//exists a bug where if null is submitted to the modal, and it doesn't process, scoreboardControl() cannot find player1Name due to null
 const scoreboardControl = (function(){
     function handleDom(){
         const player1Name = document.querySelector(".player1-name");
-        player1Name.textContent = `Player 1: ${gameboard.players[0].getPlayerName()} & you are: ${gameboard.players[0].getFishka()}`;
+        player1Name.textContent = `${gameboard.players[0].getPlayerName()}`;
 
         const player2Name = document.querySelector(".player2-name");
-        player2Name.textContent = `Player 2: ${gameboard.players[1].getPlayerName()} & you are: ${gameboard.players[1].getFishka()}`;
+        player2Name.textContent = `${gameboard.players[1].getPlayerName()}`;
 
         const player1Score = document.querySelector(".player1-score");
-        player1Score.textContent = `${gameboard.players[0].getPlayerName()}, your score is: ${gameboard.players[0].getScore()}`;
+        player1Score.textContent = `Score: ${gameboard.players[0].getScore()}`;
 
         const player2Score = document.querySelector(".player2-score");
-        player2Score.textContent = `${gameboard.players[1].getPlayerName()}, your score is: ${gameboard.players[1].getScore()}`;
+        player2Score.textContent = `Score: ${gameboard.players[1].getScore()}`;
+
+        const player1Fishka = document.querySelector(".player1-fishka");
+
+        player1Fishka.textContent = `Character: ${gameboard.players[0].getFishka()}`;
+
+        const player2Fishka = document.querySelector(".player2-fishka");
+
+        player2Fishka.textContent = `Character: ${gameboard.players[1].getFishka()}`;
     };
 
     function displayWhoPlays(){
@@ -395,6 +403,12 @@ const scoreboardControl = (function(){
 
         const gamesPlayed = document.querySelector(".rounds-played");
         gamesPlayed.textContent = '';
+
+        const player1Fishka = document.querySelector(".player1-fishka");
+        player1Fishka.textContent = '';
+
+        const player2Fishka = document.querySelector(".player2-fishka");
+        player2Fishka.textContent = '';
     }
 
     function clearRoundTracking(){
