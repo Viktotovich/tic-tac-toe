@@ -402,6 +402,9 @@ const scoreboardControl = (function(){
     function displayRound(round){
         const gamesPlayed = document.querySelector(".rounds-played");
         gamesPlayed.textContent = `Round ${round}.`;
+        if (round == '9'){
+            gamesPlayed.textContent = "It's a draw!";
+        }
     }
 
     return {
