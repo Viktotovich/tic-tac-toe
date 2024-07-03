@@ -390,12 +390,6 @@ const scoreboardControl = (function(){
         const player2Score = document.querySelector(".player2-score");
         player2Score.textContent = '';
 
-        const player1Fishka = document.querySelector(".player1-fishka");
-        player1Fishka.textContent = '';
-
-        const player2Fishka = document.querySelector(".player2-fishka");
-        player2Fishka.textContent = '';
-
         const gamesPlayed = document.querySelector(".rounds-played");
         gamesPlayed.textContent = '';
     }
