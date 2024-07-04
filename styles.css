@@ -196,3 +196,9 @@ span {
 .display-who-plays {
   margin: 0 3rem;
 }
+
+
+/*This is how I want the board to look like:
+scoreboard scoreboard scoreboard
+sidebar-p1 gameboard   sidebar-p2
+    0      buttons          0"/*
