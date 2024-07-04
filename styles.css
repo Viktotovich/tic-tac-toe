@@ -106,9 +106,9 @@ body {
 
 /* Everything after the modal */
 .scoreboard-container {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .player-container {
@@ -119,7 +119,8 @@ body {
 .player1-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;}
+  justify-content: center;
+}
 
 .player2-container {
   display: flex;
@@ -139,6 +140,11 @@ span {
 .player2-container div:hover  {
   transform: scaleY(1.1);
   background-color: #f7c29f;
+}
+
+.player1-name,
+.player2-name {
+  border-bottom: 1px solid black;
 }
 
 .versus-container {
@@ -176,3 +182,17 @@ span {
   }
 }
 
+.game-information {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid black;
+  margin-top: 3rem;
+}
+
+.rounds-played {
+  margin: 0 3rem;
+}
+
+.display-who-plays {
+  margin: 0 3rem;
+}

@@ -409,13 +409,15 @@ const scoreboardControl = (function(){
 
         const player2Fishka = document.querySelector(".player2-fishka");
         player2Fishka.textContent = '';
+        
+        clearRoundTracking();
     }
 
     function clearRoundTracking(){
         const whoPlays = document.querySelector(".display-who-plays");
         whoPlays.textContent = '';
-
     }
+
     function displayRound(round){
         const gamesPlayed = document.querySelector(".rounds-played");
         gamesPlayed.textContent = `Round ${round}.`;
